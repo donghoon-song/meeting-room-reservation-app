@@ -29,6 +29,7 @@
   },
   "devDependencies": {
     "@types/react-big-calendar": "^1.6.4",
+    "@types/react-datepicker": "^4.11.2",
     "daisyui": "^3.0.25"
   }
 }
