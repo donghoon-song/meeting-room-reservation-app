@@ -27,6 +27,7 @@
     "typescript": "5.1.3"
   },
   "devDependencies": {
-    "@types/react-big-calendar": "^1.6.4"
+    "@types/react-big-calendar": "^1.6.4",
+    "daisyui": "^3.0.25"
   }
 }
