@@ -45,6 +45,22 @@ export default function ReservationModal() {
     fetchRooms();
   }, [setRooms, supabase]);
 
+  const checkRoomAvailable = async () => {
+    const { data, error } = await supabase
+      .from("reservations")
+      .select("id, start_time, end_time")
+      .eq("room_id", roomId)
+      .gte("start_time", startDate.toISOString())
+      .lte("end_time", endDate.toISOString());
+    if (data) {
+      if (data.length > 0) {
+        alert("이미 예약된 시간입니다.");
+        return false;
+      }
+    }
+    return true;
+  };
+
   const handleReservation = async () => {
     if (!userInfo) {
       alert("로그인이 필요합니다.");
@@ -52,6 +68,10 @@ export default function ReservationModal() {
       return;
     }
     try {
+      // 그 시간에 예약할 수 있는지 체크
+      const isAvailable = await checkRoomAvailable();
+      if (!isAvailable) return;
+
       const { error } = await supabase.from("reservations").insert([
         {
           start_time: startDate,
@@ -63,6 +83,7 @@ export default function ReservationModal() {
       if (error) {
         throw new Error("예약에 실패했습니다.");
       }
+      alert("예약에 성공했습니다.");
     } catch (error) {
       console.error("handleReservation error : ", error);
     }
