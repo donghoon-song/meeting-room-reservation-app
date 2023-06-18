@@ -1,6 +1,5 @@
 "use client";
 
-import Modal from "@/components/Modal";
 import { useEffect, useState } from "react";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import DatePicker from "react-datepicker";
@@ -12,8 +11,16 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useRecoilValue } from "recoil";
 import { UserInfo } from "@/types/auth";
 import { useRouter } from "next/navigation";
+import Modal from "antd/es/modal/Modal";
+import { Select } from "antd";
 
-export default function ReservationModal() {
+export default function ReservationModal({
+  open,
+  onCancel,
+}: {
+  open: boolean;
+  onCancel: () => void;
+}) {
   const supabase = createClientComponentClient();
 
   const router = useRouter();
@@ -90,10 +97,7 @@ export default function ReservationModal() {
   };
 
   return (
-    <Modal>
-      <div className="modal-header">
-        <h3>예약하기</h3>
-      </div>
+    <Modal title="예약하기" open={open} onCancel={onCancel}>
       <div className="modal-body">
         <div className="form-control">
           <label htmlFor="room">회의실</label>
