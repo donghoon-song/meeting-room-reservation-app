@@ -104,18 +104,16 @@ export default function ReservationModal({
           {rooms.length === 0 ? (
             <div>loading...</div>
           ) : (
-            <select
-              name="room"
-              id="room"
-              value={roomId}
-              onChange={(e) => setRoomId(e.target.value)}
-            >
-              {rooms.map((room, index) => (
-                <option key={room.value} value={room.value}>
-                  {room.label}
-                </option>
-              ))}
-            </select>
+            <Select
+              options={rooms.map((room, index) => {
+                return {
+                  value: room.value,
+                  label: room.label,
+                };
+              })}
+              defaultValue={rooms[0].value}
+              onChange={(value) => setRoomId(value)}
+            />
           )}
         </div>
         <div className="form-control">
