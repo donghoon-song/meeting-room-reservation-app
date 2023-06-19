@@ -1,6 +1,5 @@
 "use client";
 
-import Modal from "@/components/Modal";
 import { useEffect, useState } from "react";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import DatePicker from "react-datepicker";
@@ -12,8 +11,16 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useRecoilValue } from "recoil";
 import { UserInfo } from "@/types/auth";
 import { useRouter } from "next/navigation";
+import Modal from "antd/es/modal/Modal";
+import { Select } from "antd";
 
-export default function ReservationModal() {
+export default function ReservationModal({
+  open,
+  onCancel,
+}: {
+  open: boolean;
+  onCancel: () => void;
+}) {
   const supabase = createClientComponentClient();
 
   const router = useRouter();
@@ -90,28 +97,23 @@ export default function ReservationModal() {
   };
 
   return (
-    <Modal>
-      <div className="modal-header">
-        <h3>예약하기</h3>
-      </div>
+    <Modal title="예약하기" open={open} onCancel={onCancel}>
       <div className="modal-body">
         <div className="form-control">
           <label htmlFor="room">회의실</label>
           {rooms.length === 0 ? (
             <div>loading...</div>
           ) : (
-            <select
-              name="room"
-              id="room"
-              value={roomId}
-              onChange={(e) => setRoomId(e.target.value)}
-            >
-              {rooms.map((room, index) => (
-                <option key={room.value} value={room.value}>
-                  {room.label}
-                </option>
-              ))}
-            </select>
+            <Select
+              options={rooms.map((room, index) => {
+                return {
+                  value: room.value,
+                  label: room.label,
+                };
+              })}
+              defaultValue={rooms[0].value}
+              onChange={(value) => setRoomId(value)}
+            />
           )}
         </div>
         <div className="form-control">
