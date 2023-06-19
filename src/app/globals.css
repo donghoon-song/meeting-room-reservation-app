@@ -30,3 +30,7 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+.primary-button {
+  @apply bg-blue-800 text-white hover:text-white rounded-lg hover:bg-blue-900;
+}
