@@ -1,18 +1,35 @@
 "use client";
 
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { useEffect, useState } from "react";
+import { SyntheticEvent, useEffect, useState } from "react";
 import { Reservation } from "../../../types/reservation";
-import Calendar from "@/components/RoomCalendar";
+import RoomCalendar from "@/components/RoomCalendar";
 import ReservationModal from "@/components/ReservationModal";
 import useModal from "@/hooks/useModal";
+import ReservationDetailModal from "@/components/ReservationDetailModal";
 
 export default function CalendarPage() {
-  const [isReservationModalOpen, openReservationModal, closeModal] = useModal();
+  const [isReservationModalOpen, openReservationModal, closeReservationModal] =
+    useModal();
+  const [
+    isReservationDetailModalOpen,
+    openReservationDetailModal,
+    closeReservationDetailModal,
+  ] = useModal();
+  const [reservationDetail, setReservationDetail] = useState<Reservation>();
+
+  // TODO: any type 제거하기
+  const handleSelectEvent = (
+    event: any,
+    e: SyntheticEvent<HTMLElement, globalThis.Event>
+  ) => {
+    setReservationDetail(event);
+    openReservationDetailModal();
+  };
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <Calendar />
+      <RoomCalendar onSelectEvent={handleSelectEvent} />
       <button
         className="primary-button w-full h-10"
         onClick={() => openReservationModal()}
@@ -21,8 +38,13 @@ export default function CalendarPage() {
       </button>
       <ReservationModal
         open={isReservationModalOpen}
-        onSuccess={() => closeModal()}
-        onCancel={() => closeModal()}
+        onSuccess={() => closeReservationModal()}
+        onCancel={() => closeReservationModal()}
+      />
+      <ReservationDetailModal
+        open={isReservationDetailModalOpen}
+        onCancel={() => closeReservationDetailModal()}
+        reservationDetail={reservationDetail as Reservation}
       />
     </main>
   );
