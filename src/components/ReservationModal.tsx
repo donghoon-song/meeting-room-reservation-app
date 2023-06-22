@@ -19,13 +19,13 @@ import { useRouter } from "next/navigation";
 import Modal from "antd/es/modal/Modal";
 import { Select } from "antd";
 
-export default function ReservationModal({
-  open,
-  onCancel,
-}: {
+type Props = {
   open: boolean;
+  onSuccess: () => void;
   onCancel: () => void;
-}) {
+};
+
+export default function ReservationModal({ open, onSuccess, onCancel }: Props) {
   const supabase = createClientComponentClient();
 
   const router = useRouter();
@@ -115,6 +115,7 @@ export default function ReservationModal({
         throw new Error("예약에 실패했습니다.");
       }
       alert("예약에 성공했습니다.");
+      onSuccess && onSuccess();
     } catch (error) {
       console.error("handleReservation error : ", error);
     }

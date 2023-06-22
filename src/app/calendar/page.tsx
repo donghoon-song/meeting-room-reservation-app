@@ -21,6 +21,7 @@ export default function CalendarPage() {
       </button>
       <ReservationModal
         open={isReservationModalOpen}
+        onSuccess={() => closeModal()}
         onCancel={() => closeModal()}
       />
     </main>
