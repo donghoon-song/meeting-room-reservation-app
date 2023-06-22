@@ -8,7 +8,8 @@ import ReservationModal from "@/components/ReservationModal";
 import useModal from "@/hooks/useModal";
 
 export default function CalendarPage() {
-  const [isReservationModalOpen, openReservationModal, closeModal] = useModal();
+  const [isReservationModalOpen, openReservationModal, closeReservationModal] =
+    useModal();
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
@@ -21,8 +22,8 @@ export default function CalendarPage() {
       </button>
       <ReservationModal
         open={isReservationModalOpen}
-        onSuccess={() => closeModal()}
-        onCancel={() => closeModal()}
+        onSuccess={() => closeReservationModal()}
+        onCancel={() => closeReservationModal()}
       />
     </main>
   );
