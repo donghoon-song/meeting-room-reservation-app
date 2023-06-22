@@ -3,7 +3,12 @@
 import { useEffect, useState } from "react";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import DatePicker from "react-datepicker";
-import { isWeekday, filterPassedTime } from "@/utils/date";
+import {
+  isWeekday,
+  filterPassedTime,
+  getNextHalfHourMark,
+  filterStartTime,
+} from "@/utils/date";
 import dayjs from "dayjs";
 import { getUserInfo } from "@/atoms/auth";
 
@@ -30,10 +35,10 @@ export default function ReservationModal({
   const [rooms, setRooms] = useState<any[]>([]);
   const [roomId, setRoomId] = useState<string>("");
   const [startDate, setStartDate] = useState<Date>(
-    new Date(new Date().toLocaleDateString())
+    getNextHalfHourMark(new Date())
   );
   const [endDate, setEndDate] = useState<Date>(
-    new Date(new Date().toLocaleDateString())
+    getNextHalfHourMark(dayjs().add(30, "minutes").toDate())
   );
 
   useEffect(() => {
@@ -140,7 +145,9 @@ export default function ReservationModal({
             timeFormat="HH:mm"
             timeIntervals={30}
             filterDate={isWeekday}
-            filterTime={filterPassedTime}
+            filterTime={(time: Date) =>
+              filterPassedTime(time) && filterStartTime(time, startDate)
+            }
             minDate={new Date()}
             maxDate={dayjs().add(5, "month").toDate()}
             onChange={(date: any) => setEndDate(date)}
