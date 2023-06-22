@@ -57,6 +57,22 @@ export default function ReservationModal({
     fetchRooms();
   }, [setRooms, supabase]);
 
+  const checkInputValidation = () => {
+    if (!roomId) {
+      alert("회의실을 선택해주세요.");
+      return false;
+    }
+    if (!startDate || !endDate) {
+      alert("시작 시간과 종료 시간을 선택해주세요.");
+      return false;
+    }
+    if (startDate >= endDate) {
+      alert("종료 시간이 시작 시간보다 빠를 수 없습니다.");
+      return false;
+    }
+    return true;
+  };
+
   const checkRoomAvailable = async () => {
     const { data, error } = await supabase
       .from("reservations")
@@ -80,6 +96,9 @@ export default function ReservationModal({
       return;
     }
     try {
+      // 입력값 체크
+      const isValid = checkInputValidation();
+      if (!isValid) return;
       // 그 시간에 예약할 수 있는지 체크
       const isAvailable = await checkRoomAvailable();
       if (!isAvailable) return;
