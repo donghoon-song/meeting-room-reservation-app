@@ -13,7 +13,10 @@ export default function CalendarPage() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <Calendar />
-      <button className="btn" onClick={() => openReservationModal()}>
+      <button
+        className="primary-button w-full h-10"
+        onClick={() => openReservationModal()}
+      >
         예약하기
       </button>
       <ReservationModal

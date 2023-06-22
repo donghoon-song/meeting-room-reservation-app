@@ -11,8 +11,8 @@ import {
 } from "@/utils/date";
 import dayjs from "dayjs";
 import { getUserInfo } from "@/atoms/auth";
-
 import "react-datepicker/dist/react-datepicker.css";
+import "@/styles/react-datepicker-custom.css";
 import { useRecoilValue } from "recoil";
 import { UserInfo } from "@/types/auth";
 import { useRouter } from "next/navigation";
@@ -102,14 +102,22 @@ export default function ReservationModal({
   };
 
   return (
-    <Modal title="예약하기" open={open} onCancel={onCancel}>
-      <div className="modal-body">
-        <div className="form-control">
-          <label htmlFor="room">회의실</label>
+    <Modal
+      title="예약하기"
+      open={open}
+      onCancel={onCancel}
+      width="16rem"
+      centered
+      footer={null}
+    >
+      <div className="">
+        <div className="input-wrapper space-y-1">
+          <div>회의실</div>
           {rooms.length === 0 ? (
             <div>loading...</div>
           ) : (
             <Select
+              className="w-full"
               options={rooms.map((room, index) => {
                 return {
                   value: room.value,
@@ -121,9 +129,10 @@ export default function ReservationModal({
             />
           )}
         </div>
-        <div className="form-control">
+        <div className="input-wrapper space-y-1">
           <label htmlFor="start">시작 시간</label>
           <DatePicker
+            className="bg-white border border-gray-300 rounded-md px-3 py-2 w-full"
             selected={startDate}
             dateFormat="MMMM d, yyyy h:mm aa"
             showTimeSelect
@@ -136,9 +145,10 @@ export default function ReservationModal({
             onChange={(date: any) => setStartDate(date)}
           />
         </div>
-        <div className="form-control">
+        <div className="input-wrapper space-y-1">
           <label htmlFor="end">종료 시간</label>
           <DatePicker
+            className="bg-white border border-gray-300 rounded-md px-3 py-2 w-full"
             selected={endDate}
             dateFormat="MMMM d, yyyy h:mm aa"
             showTimeSelect
@@ -153,16 +163,11 @@ export default function ReservationModal({
             onChange={(date: any) => setEndDate(date)}
           />
         </div>
-      </div>
-      <div className="modal-action">
-        <button className="btn" onClick={handleReservation}>
-          예약하기
-        </button>
-        <form method="dialog">
-          <button id="close" className="btn">
-            돌아가기
+        <div className="flex flex-col mt-4 space-y-2">
+          <button onClick={handleReservation} className="primary-button h-10">
+            예약하기
           </button>
-        </form>
+        </div>
       </div>
     </Modal>
   );
