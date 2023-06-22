@@ -41,7 +41,8 @@ export default function RoomCalendar() {
       events={events}
       startAccessor="start"
       endAccessor="end"
-      style={{ height: 500 }}
+      defaultView="week"
+      style={{ width: "100%", height: 500 }}
     />
   );
 }
