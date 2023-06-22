@@ -167,13 +167,6 @@ export default function ReservationModal({
           <button onClick={handleReservation} className="primary-button h-10">
             예약하기
           </button>
-
-          <button
-            className="bg-gray-800 text-white hover:text-white h-10 rounded-lg hover:bg-gray-900"
-            onClick={onCancel}
-          >
-            돌아가기
-          </button>
         </div>
       </div>
     </Modal>
