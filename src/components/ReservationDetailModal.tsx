@@ -31,7 +31,8 @@ export default function ReservationDetailModal({
         </div>
         <div className="flex flex-col">
           <div className="text-base ">
-            {reservationDetail.rooms.name} {reservationDetail.rooms.capacity}인
+            {reservationDetail?.rooms.name} {reservationDetail?.rooms.capacity}
+            인
           </div>
           <div className="text-base">
             {dayjs(reservationDetail?.start).format("YYYY-MM-DD HH:mm")} ~{" "}
@@ -42,7 +43,7 @@ export default function ReservationDetailModal({
       <div className="flex flex-row justify-between">
         <div className="flex flex-col">
           <div className="text-base text-gray-500">
-            {reservationDetail.users.name}
+            {reservationDetail?.users.name}
           </div>
         </div>
       </div>
