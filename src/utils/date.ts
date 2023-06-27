@@ -12,6 +12,31 @@ export const filterPassedTime = (time: Date) => {
   return currentDate.getTime() < selectedDate.getTime();
 };
 
+// 근무시간 내에만 선택할 수 있도록 필터링
+export const filterWorkingTime = (time: Date) => {
+  const selectedDate = new Date(time);
+  const workingStartingTime = new Date(
+    selectedDate.getFullYear(),
+    selectedDate.getMonth(),
+    selectedDate.getDate(),
+    9,
+    30,
+    0
+  );
+  const workingEndingTime = new Date(
+    selectedDate.getFullYear(),
+    selectedDate.getMonth(),
+    selectedDate.getDate(),
+    19,
+    0,
+    0
+  );
+  return (
+    selectedDate.getTime() >= workingStartingTime.getTime() &&
+    selectedDate.getTime() <= workingEndingTime.getTime()
+  );
+};
+
 // 시작 시간 이전은 선택할 수 없도록 필터링
 export const filterStartTime = (time: Date, startTime: Date) => {
   const currentDate = new Date();
