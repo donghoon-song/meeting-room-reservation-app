@@ -8,6 +8,7 @@ import {
   filterPassedTime,
   getNextHalfHourMark,
   filterStartTime,
+  filterWorkingTime,
 } from "@/utils/date";
 import dayjs from "dayjs";
 import { getUserInfo } from "@/atoms/auth";
@@ -159,7 +160,9 @@ export default function ReservationModal({ open, onSuccess, onCancel }: Props) {
             timeFormat="HH:mm"
             timeIntervals={30}
             filterDate={isWeekday}
-            filterTime={filterPassedTime}
+            filterTime={(time: Date) =>
+              filterPassedTime(time) && filterWorkingTime(time)
+            }
             minDate={new Date()}
             maxDate={dayjs().add(5, "month").toDate()}
             onChange={(date: any) => setStartDate(date)}
@@ -176,7 +179,9 @@ export default function ReservationModal({ open, onSuccess, onCancel }: Props) {
             timeIntervals={30}
             filterDate={isWeekday}
             filterTime={(time: Date) =>
-              filterPassedTime(time) && filterStartTime(time, startDate)
+              filterPassedTime(time) &&
+              filterStartTime(time, startDate) &&
+              filterWorkingTime(time)
             }
             minDate={new Date()}
             maxDate={dayjs().add(5, "month").toDate()}

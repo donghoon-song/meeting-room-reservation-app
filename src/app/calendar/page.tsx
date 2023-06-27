@@ -7,8 +7,12 @@ import RoomCalendar from "@/components/RoomCalendar";
 import ReservationModal from "@/components/ReservationModal";
 import useModal from "@/hooks/useModal";
 import ReservationDetailModal from "@/components/ReservationDetailModal";
+import useReservations from "@/hooks/useReservations";
 
 export default function CalendarPage() {
+  const supabase = createClientComponentClient();
+  const [events, fetchReservations] = useReservations();
+
   const [isReservationModalOpen, openReservationModal, closeReservationModal] =
     useModal();
   const [
@@ -17,6 +21,10 @@ export default function CalendarPage() {
     closeReservationDetailModal,
   ] = useModal();
   const [reservationDetail, setReservationDetail] = useState<Reservation>();
+
+  useEffect(() => {
+    fetchReservations();
+  }, [fetchReservations]);
 
   // TODO: any type 제거하기
   const handleSelectEvent = (
@@ -29,7 +37,7 @@ export default function CalendarPage() {
 
   return (
     <main className="flex min-h-screen flex-col items-center p-4 sm:p-24 ">
-      <RoomCalendar onSelectEvent={handleSelectEvent} />
+      <RoomCalendar events={events} onSelectEvent={handleSelectEvent} />
       <button
         className="primary-button w-full h-10 mt-6"
         onClick={() => openReservationModal()}
@@ -38,7 +46,10 @@ export default function CalendarPage() {
       </button>
       <ReservationModal
         open={isReservationModalOpen}
-        onSuccess={() => closeReservationModal()}
+        onSuccess={() => {
+          closeReservationModal();
+          fetchReservations();
+        }}
         onCancel={() => closeReservationModal()}
       />
       <ReservationDetailModal
