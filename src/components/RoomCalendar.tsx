@@ -55,6 +55,7 @@ export default function RoomCalendar({ onSelectEvent }: Props) {
       startAccessor="start"
       endAccessor="end"
       defaultView="week"
+      views={["month", "week", "day"]}
       style={{ width: "100%", height: 500 }}
       onSelectEvent={onSelectEvent}
     />
