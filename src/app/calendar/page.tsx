@@ -28,10 +28,10 @@ export default function CalendarPage() {
   };
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <main className="flex min-h-screen flex-col items-center p-4 sm:p-24 ">
       <RoomCalendar onSelectEvent={handleSelectEvent} />
       <button
-        className="primary-button w-full h-10"
+        className="primary-button w-full h-10 mt-6"
         onClick={() => openReservationModal()}
       >
         예약하기
