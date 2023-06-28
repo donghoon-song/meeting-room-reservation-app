@@ -21,7 +21,9 @@ export default function Login() {
 
   return (
     <>
-      <button onClick={handleSignUp}>구글로 시작하기</button>
+      <button className="primary-button px-5 py-2.5" onClick={handleSignUp}>
+        구글로 시작하기
+      </button>
     </>
   );
 }
