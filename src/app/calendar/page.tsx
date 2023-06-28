@@ -24,7 +24,7 @@ export default function CalendarPage() {
 
   useEffect(() => {
     fetchReservations();
-  }, [fetchReservations]);
+  }, []);
 
   // TODO: any type 제거하기
   const handleSelectEvent = (
