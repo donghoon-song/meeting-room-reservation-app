@@ -2,10 +2,10 @@ import Modal from "antd/es/modal/Modal";
 import { Reservation } from "../../types/reservation";
 import dayjs from "dayjs";
 
-type Props = {
+export type Props = {
   open: boolean;
   onCancel: () => void;
-  reservationDetail: {
+  reservationDetail?: {
     start: Date;
     end: Date;
     rooms: {

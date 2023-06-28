@@ -8,6 +8,7 @@ import ReservationModal from "@/components/ReservationModal";
 import useModal from "@/hooks/useModal";
 import ReservationDetailModal from "@/components/ReservationDetailModal";
 import useReservations from "@/hooks/useReservations";
+import { Props as ReservationDetailModalProps } from "@/components/ReservationDetailModal";
 
 export default function CalendarPage() {
   const supabase = createClientComponentClient();
@@ -20,7 +21,8 @@ export default function CalendarPage() {
     openReservationDetailModal,
     closeReservationDetailModal,
   ] = useModal();
-  const [reservationDetail, setReservationDetail] = useState<Reservation>();
+  const [reservationDetail, setReservationDetail] =
+    useState<ReservationDetailModalProps["reservationDetail"]>();
 
   useEffect(() => {
     fetchReservations();
@@ -55,7 +57,7 @@ export default function CalendarPage() {
       <ReservationDetailModal
         open={isReservationDetailModalOpen}
         onCancel={() => closeReservationDetailModal()}
-        reservationDetail={reservationDetail as Reservation}
+        reservationDetail={reservationDetail}
       />
     </main>
   );
