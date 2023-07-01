@@ -4,6 +4,7 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useRouter } from "next/navigation";
 
 import type { Database } from "@/lib/database.types";
+import { getURL } from "@/utils/url";
 
 export default function Login() {
   const router = useRouter();
@@ -13,7 +14,7 @@ export default function Login() {
     await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: `${location.origin}/auth/callback`,
+        redirectTo: `${getURL()}/auth/callback`,
       },
     });
     router.refresh();
