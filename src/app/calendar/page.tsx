@@ -9,6 +9,7 @@ import useModal from "@/hooks/useModal";
 import ReservationDetailModal from "@/components/ReservationDetailModal";
 import useReservations from "@/hooks/useReservations";
 import { Props as ReservationDetailModalProps } from "@/components/ReservationDetailModal";
+import { Alert, Button, Space } from "antd";
 
 export default function CalendarPage() {
   const supabase = createClientComponentClient();
@@ -37,15 +38,37 @@ export default function CalendarPage() {
     openReservationDetailModal();
   };
 
+  const handleClickFeedbackButton = () =>
+    window.open("https://forms.gle/GQsaSJnzi9veFPCe8", "_blank");
+
   return (
     <main className="flex min-h-screen flex-col items-center p-4 sm:p-24 ">
-      <RoomCalendar events={events} onSelectEvent={handleSelectEvent} />
-      <button
-        className="primary-button w-full mt-6"
-        onClick={() => openReservationModal()}
-      >
-        예약하기
-      </button>
+      {/* alert의 width를 100%로 하기 위해 relative로 감싸줌 */}
+      <div className="relative w-full">
+        <Alert
+          className="w-full absolute aa -top-16"
+          message="소중한 피드백을 남겨주세요."
+          type="info"
+          action={
+            <Button
+              size="small"
+              type="primary"
+              className="bg-sky-300"
+              onClick={handleClickFeedbackButton}
+            >
+              피드백 남기기
+            </Button>
+          }
+          closable
+        />
+        <RoomCalendar events={events} onSelectEvent={handleSelectEvent} />
+        <button
+          className="primary-button w-full mt-6"
+          onClick={() => openReservationModal()}
+        >
+          예약하기
+        </button>
+      </div>
       <ReservationModal
         open={isReservationModalOpen}
         onSuccess={() => {
