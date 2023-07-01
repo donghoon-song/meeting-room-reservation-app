@@ -2,6 +2,7 @@ import "./globals.css";
 import Recoil from "@/components/Recoil";
 import { ReactNode } from "react";
 import { AuthWrapper } from "@/components/AuthWrapper";
+import { Alert, Button, Space } from "antd";
 
 export const metadata = {
   title: "회의실 예약 시스템 | 코멘토",
