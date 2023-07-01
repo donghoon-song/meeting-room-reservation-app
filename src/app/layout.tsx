@@ -2,7 +2,7 @@ import "./globals.css";
 import Recoil from "@/components/Recoil";
 import { ReactNode } from "react";
 import { AuthWrapper } from "@/components/AuthWrapper";
-import { Alert, Button, Space } from "antd";
+import { Analytics } from "@vercel/analytics/react";
 
 export const metadata = {
   title: "회의실 예약 시스템 | 코멘토",
@@ -20,6 +20,7 @@ export default async function RootLayout({
         <Recoil>
           <AuthWrapper>{children}</AuthWrapper>
         </Recoil>
+        <Analytics />
       </body>
     </html>
   );
