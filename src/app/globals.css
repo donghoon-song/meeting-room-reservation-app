@@ -25,5 +25,5 @@ body {
 }
 
 .primary-button {
-  @apply bg-blue-800 text-white hover:text-white rounded-lg hover:bg-blue-900;
+  @apply bg-blue-800 text-white hover:text-white rounded-lg hover:bg-blue-900 px-5 py-2.5;
 }
