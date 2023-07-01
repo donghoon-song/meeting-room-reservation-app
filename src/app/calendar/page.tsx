@@ -41,7 +41,7 @@ export default function CalendarPage() {
     <main className="flex min-h-screen flex-col items-center p-4 sm:p-24 ">
       <RoomCalendar events={events} onSelectEvent={handleSelectEvent} />
       <button
-        className="primary-button w-full h-10 mt-6"
+        className="primary-button w-full mt-6"
         onClick={() => openReservationModal()}
       >
         예약하기
